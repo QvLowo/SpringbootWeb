@@ -9,6 +9,7 @@ import com.qvl.springbootweb.model.po.Ship;
 import com.qvl.springbootweb.model.response.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,6 +39,22 @@ public class DataController {
     @GetMapping("/ship")
     public ResponseEntity<ApiResponse<Ship>> getShip() {
         Ship ship = new Ship("Titanic", "郵輪", 280, 30);
+        ApiResponse<Ship> apiResponse = new ApiResponse<>(true, "成功", ship);
+        return ResponseEntity.ok(apiResponse);
+    }
+
+    @GetMapping("/ship/{id}")
+    public ResponseEntity<ApiResponse<Ship>> getShipById(@PathVariable("id") Integer id) {
+        List<Ship> ships = List.of(
+                new Ship("Titanic", "郵輪", 280, 30),
+                new Ship("Evergreen", "貨輪", 350, 30),
+                new Ship("順風一號", "客船", 30, 10)
+        );
+        if(id>=ships.size() || id<0){
+            ApiResponse<Ship> apiResponse = new ApiResponse<>(true, "查無船隻資料", null);
+            return ResponseEntity.ok(apiResponse);
+        }
+        Ship ship =ships.get(id);
         ApiResponse<Ship> apiResponse = new ApiResponse<>(true, "成功", ship);
         return ResponseEntity.ok(apiResponse);
     }
