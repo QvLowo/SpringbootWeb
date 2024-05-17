@@ -63,18 +63,36 @@ document.addEventListener("DOMContentLoaded", async () => {
         renderShipTable(data);
     });
 
-    $('shipByIdBtn').addEventListener("click", async(event) => {
+    $('shipByIdBtn').addEventListener("click", async (event) => {
         console.log('shipByIdBtn 被按下');
         // 彈出輸入框
         const id = window.prompt('請輸入 id');
         const response = await fetch(`http://localhost:8081/data/ship/${id}`);
         const {state, message, data} = await response.json();
         console.log(state, message, data);
-        if(state) {
+        if (state) {
             $('result').innerHTML = `名稱: ${data.name}<br>
 									 種類: ${data.type}<br>
 									 長度: ${data.length}m<br>
 									 寬度: ${data.width}m`;
+        } else {
+            $('result').innerHTML = message;
+        }
+    });
+
+    $('bmiBtn').addEventListener("click", async (event) => {
+        console.log('bmiBtn 被按下');
+        // 彈出輸入框
+        const h = window.prompt('請輸入 身高');
+        const w = window.prompt('請輸入 體重');
+        const response = await fetch(`http://localhost:8081/data/bmi?h=${h}&w=${w}`);
+        const {state, message, data} = await response.json();
+        console.log(state, message, data);
+        if (state) {
+            $('result').innerHTML = `身高: ${data.height}<br>
+									 體重: ${data.weight}<br>
+									 BMI: ${data.bmi}<br>
+                                      結果: ${data.result}`;
         } else {
             $('result').innerHTML = message;
         }

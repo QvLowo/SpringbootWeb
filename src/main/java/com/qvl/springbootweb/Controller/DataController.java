@@ -5,13 +5,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import com.qvl.springbootweb.model.dto.BmiDto;
 import com.qvl.springbootweb.model.po.Ship;
 import com.qvl.springbootweb.model.response.ApiResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController // CSR
 @RequestMapping("/data")
@@ -69,4 +67,13 @@ public class DataController {
         ApiResponse<List<Ship>> apiResponse = new ApiResponse<>(true, "成功", ships);
         return ResponseEntity.ok(apiResponse);
     }
+    @GetMapping("/bmi")
+    public ResponseEntity<ApiResponse<BmiDto>>getBmi(@RequestParam("h")Double h,@RequestParam("w")Double w){
+        double bmi = w/ Math.pow(h/100 ,2);
+        String result = bmi <18?"體重過輕":bmi>23 ?"體重過重":"正常";
+        BmiDto bmiDto = new BmiDto(w,h,bmi,result);
+        ApiResponse<BmiDto> apiResponse = new ApiResponse<>(true, "成功", bmiDto);
+        return ResponseEntity.ok(apiResponse);
+    }
+
 }
