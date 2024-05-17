@@ -62,4 +62,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         // 資料渲染
         renderShipTable(data);
     });
+
+    $('shipByIdBtn').addEventListener("click", async(event) => {
+        console.log('shipByIdBtn 被按下');
+        const id = window.prompt('請輸入 id');
+        const response = await fetch(`http://localhost:8081/data/ship/${id}`);
+        const {state, message, data} = await response.json();
+        console.log(state, message, data);
+        if(state) {
+            $('result').innerHTML = `名稱: ${data.name}<br>
+									 種類: ${data.type}<br>
+									 長度: ${data.length}m<br>
+									 寬度: ${data.width}m`;
+        } else {
+            $('result').innerHTML = message;
+        }
+    });
 });

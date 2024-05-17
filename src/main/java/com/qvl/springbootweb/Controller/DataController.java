@@ -51,7 +51,7 @@ public class DataController {
                 new Ship("順風一號", "客船", 30, 10)
         );
         if(id>=ships.size() || id<0){
-            ApiResponse<Ship> apiResponse = new ApiResponse<>(true, "查無船隻資料", null);
+            ApiResponse<Ship> apiResponse = new ApiResponse<>(false, "查無船隻資料", null);
             return ResponseEntity.ok(apiResponse);
         }
         Ship ship =ships.get(id);
