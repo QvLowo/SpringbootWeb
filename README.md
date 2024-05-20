@@ -12,14 +12,13 @@ mysql
 - 非同步：程式不用等待前面的執行完，可以同時執行其他程式，類似多個thread．
 
 ## Promise的解釋
-Promise 是一個用來處理非同步操作的物件．他代表一個尚未完成的操作，但最終會成功完成或失敗．
-Promise 的三種狀態
-Pending(待定):初始狀態，操作尚未完成或被拒絕．
-Fulfilled(已完成):操作成功完成．
-Rejected(已拒絕):操作失敗．
-Promise 的基本用法
+Promise 是一個用來處理非同步操作的物件．他代表一個尚未完成的操作，但最終會成功完成或失敗．</br>
+Promise 的三種狀態</br>
+Pending(待定):初始狀態，操作尚未完成或被拒絕．</br>
+Fulfilled(已完成):操作成功完成．</br>
+Rejected(已拒絕):操作失敗．</br>
 ---
-### Promise實作
+### Promise基本用法
  > let只能在某個實作區塊內超過即不可使用（類似區域變數），var類似全域變數
 ```
 let promise = new Promise((resolve, reject) => {
